@@ -1,0 +1,9 @@
+numpy
+matplotlib
+pandas
+torch
+scipy
+scikit-image
+SimpleITK
+tqdm
+visdom
