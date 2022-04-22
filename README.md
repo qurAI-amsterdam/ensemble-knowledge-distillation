@@ -67,8 +67,9 @@ python training_network.py -n dil2D  \
                            --balance-ratios 0,5,5
 ```
 
-## Testing
-Testing a 2D network for background/kidney+tumor segmentation:
+## Inference
+
+Running the 2D network for background/kidney+tumor segmentation on the validation data:
 
 ```shell
 python testing_network.py -d /path/to/data/directory/ \
@@ -80,7 +81,7 @@ python testing_network.py -d /path/to/data/directory/ \
                           --classes 0,3
 ```
 
-Testing a 2D network for background/kidney/tumor segmentation:
+Running the 2D network for background/kidney/tumor segmentation on the validation data:
 
 ```shell
 python testing_network.py -d /path/to/data/directory/ \
@@ -98,11 +99,11 @@ Obtaining soft labels for a 2D network for background/kidney+tumor segmentation:
 
 ```shell
 python ensemble.py -d /path/to/data/directory/ \
-                      -s /path/to/save/directory/ \
-                      -e val \
-                      --receptive-field-size 131 \
-                      --sample-size 54 \
-                      --classes 0,3
+                   -s /path/to/save/directory/ \
+                   -e val \
+                   --receptive-field-size 131 \
+                   --sample-size 54 \
+                   --classes 0,3
 ```
 
 Obtaining soft labels for a 2D network for background/kidney/tumor segmentation:
@@ -119,4 +120,4 @@ python ensemble.py -d /path/to/data/directory/ \
 
 ## Knowledge Distillation
 
-Retrain the best-performing network from the ensemble and activate knowledge distillation with the setting `--soft` to train the network with both the reference segmentations and the soft labels predicted by the ensemble.
+Retrain the best-performing network from the ensemble and activate knowledge distillation with the setting `--soft` to train the network with both the reference segmentations and the soft labels predicted by the ensemble. Remember to first run the ensembling step for the training and validation data.
