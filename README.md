@@ -8,13 +8,13 @@ ensemble.
 
 ## Preparations
 
-Place the images and segmentation masks into a folder. For example, you can download the data from [the KiTS19 Challenge](https://github.com/neheller/kits19)
-
 Install the required packages (requires a Python 3 installation):
 
 ```shell
 pip install -r requirements.txt
 ```
+
+The original images and segmentation masks need to be pre-processed before starting the network training. This example uses the data from [the KiTS19 Challenge](https://github.com/neheller/kits19).
 
 Resample the data:
     
@@ -22,23 +22,21 @@ Resample the data:
 python resample_data.py -d "path-to-data-directory" 
 ```
 
-Split the dataset by creating folders "val", "train", "test" in the data folder. Distribute the cases over these folders as you like.
+Split the dataset into subsets used for training, validation and testing by creating folders "train", "val", "test". Distribute the pre-processed cases over these folders as you like.
 
-## Training
-
-Start a visdom server on port 8008 to monitor the training process:
-
-```shell
-python -m visdom.server -p 8008
-```
-
-In all the commands below, the directory `/path/to/data/directory/` is assumed to contain the "val", "train" and "test" directories, i.e., you should have:
+In all commands below, the directory `/path/to/data/directory/` is assumed to contain the "train", "val" and "test" directories, i.e., you should have:
 
     /path/to/data/directory/test
     /path/to/data/directory/train
     /path/to/data/directory/val
 
-Furthermore, this example is focused on the KiTS19 data, but can be easily adjusted to other classes.
+## Training
+
+Start a local visdom server on port 8008 to monitor the training process:
+
+```shell
+python -m visdom.server -p 8008
+```
 
 Train a 2D network for background/kidney+tumor segmentation. We used 123 as our random seed, but you can use any other value.
 
@@ -121,4 +119,4 @@ python ensemble.py -d /path/to/data/directory/ \
 
 ## Knowledge Distillation
 
-Retrain the best-performing single network from the ensemble with the setting `--soft` to enable knowledge distillation, i.e., learning from the soft labels predicted by the ensemble.
+Retrain the best-performing network from the ensemble and activate knowledge distillation with the setting `--soft` to train the network with both the reference segmentations and the soft labels predicted by the ensemble.
